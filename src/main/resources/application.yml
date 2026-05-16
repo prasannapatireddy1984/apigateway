@@ -12,7 +12,6 @@ spring:
     gateway:
       server:
         webflux:
-
           globalcors:
             cors-configurations:
               '[/**]':
@@ -21,18 +20,18 @@ spring:
                   - "https://costumeaura.com"
                   - "https://rentacostume-ui-eblo.vercel.app"
                   - "http://localhost:3000"
-
                 allowedMethods:
                   - GET
                   - POST
                   - PUT
                   - DELETE
                   - OPTIONS
-
                 allowedHeaders:
                   - "*"
-
                 allowCredentials: true
+
+          default-filters:
+            - RemoveRequestHeader=Origin
 
           routes:
             - id: userservice
