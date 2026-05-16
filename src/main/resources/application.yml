@@ -1,0 +1,63 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: apigateway
+
+  main:
+    web-application-type: reactive
+
+  cloud:
+    gateway:
+      server:
+        webflux:
+          routes:
+            - id: userservice
+              uri: https://userservice-k1fn.onrender.com
+              predicates:
+                - Path=/api/users/**
+
+            - id: vendorservice
+              uri: https://vendorservice.onrender.com
+              predicates:
+                - Path=/api/vendors/**
+
+            - id: catalogservice
+              uri: https://catalogservice-1.onrender.com
+              predicates:
+                - Path=/api/catalog/**
+
+            - id: cartservice
+              uri: https://cartservice-vztu.onrender.com
+              predicates:
+                - Path=/api/cart/**
+
+            - id: orderservice
+              uri: https://orderservice-nzm8.onrender.com
+              predicates:
+                - Path=/api/orders/**
+
+            - id: notificationservice
+              uri: https://notificationservice-7k4t.onrender.com
+              predicates:
+                - Path=/api/notifications/**
+
+            - id: chatservice
+              uri: https://chatservice-ikfz.onrender.com
+              predicates:
+                - Path=/api/chat/**
+
+            - id: reviewsservice
+              uri: https://reviewservice-fjuv.onrender.com
+              predicates:
+                - Path=/api/reviews/**
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,gateway
+  endpoint:
+    gateway:
+      access: read-only
