@@ -10,23 +10,30 @@ spring:
 
   cloud:
     gateway:
-      globalcors:
-        corsConfigurations:
-          '[/**]':
-            allowedOrigins:
-              - "https://www.costumeaura.com"
-            allowedMethods:
-              - GET
-              - POST
-              - PUT
-              - DELETE
-              - OPTIONS
-            allowedHeaders:
-              - "*"
-            allowCredentials: true
-
       server:
         webflux:
+
+          globalcors:
+            cors-configurations:
+              '[/**]':
+                allowedOrigins:
+                  - "https://www.costumeaura.com"
+                  - "https://costumeaura.com"
+                  - "https://rentacostume-ui-eblo.vercel.app"
+                  - "http://localhost:3000"
+
+                allowedMethods:
+                  - GET
+                  - POST
+                  - PUT
+                  - DELETE
+                  - OPTIONS
+
+                allowedHeaders:
+                  - "*"
+
+                allowCredentials: true
+
           routes:
             - id: userservice
               uri: https://userservice-k1fn.onrender.com
