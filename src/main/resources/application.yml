@@ -1,6 +1,5 @@
 server:
   port: 8080
-  forward-headers-strategy: framework
 
 spring:
   application:
@@ -11,9 +10,20 @@ spring:
 
   cloud:
     gateway:
-      httpclient:
-        connect-timeout: 30000
-        response-timeout: 60s
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins:
+              - "https://www.costumeaura.com"
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
+              - OPTIONS
+            allowedHeaders:
+              - "*"
+            allowCredentials: true
 
       server:
         webflux:
