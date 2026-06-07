@@ -74,15 +74,15 @@ spring:
               predicates:
                 - Path=/api/reviews/**
 
-            - id: vendor-dashboard-service
-              uri: https://vendorservice.onrender.com
-              predicates:
-                - Path=/api/vendor/**
-
             - id: vendor-analytics-orderservice
               uri: https://orderservice-nzm8.onrender.com
               predicates:
                 - Path=/api/vendor/analytics/**
+
+            - id: vendor-dashboard-service
+              uri: https://vendorservice.onrender.com
+              predicates:
+                - Path=/api/vendor/**
 
             - id: orderservice
               uri: https://orderservice-nzm8.onrender.com
