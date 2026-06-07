@@ -74,6 +74,11 @@ spring:
               predicates:
                 - Path=/api/reviews/**
 
+            - id: vendor-dashboard-service
+              uri: https://vendorservice.onrender.com
+              predicates:
+                - Path=/api/vendor/**
+
 management:
   endpoints:
     web:
@@ -84,4 +89,4 @@ management:
     gateway:
       access: read-only
 jwt:
-  secret: ${JWT_SECRET:7hJ29#kLpQx8NfM2$vRwZ5@pTs9YcA4eU1mBn6DxQ3sLk}
+  secret: ${JWT_SECRET}
