@@ -83,3 +83,5 @@ management:
   endpoint:
     gateway:
       access: read-only
+jwt:
+  secret: ${JWT_SECRET:7hJ29#kLpQx8NfM2$vRwZ5@pTs9YcA4eU1mBn6DxQ3sLk}
