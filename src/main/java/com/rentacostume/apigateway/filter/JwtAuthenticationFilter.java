@@ -102,11 +102,15 @@ public class JwtAuthenticationFilter implements GlobalFilter, Ordered {
 
     private boolean isVendorPath(String path) {
         return path.startsWith("/api/vendor")
-                || path.startsWith("/api/vendors");
+                || path.startsWith("/api/vendors")
+                || path.startsWith("/api/orders/vendor");
     }
 
     private boolean isUserPath(String path) {
         return path.startsWith("/api/cart")
-                || path.startsWith("/api/orders");
+                || (
+                path.startsWith("/api/orders")
+                        && !path.startsWith("/api/orders/vendor")
+        );
     }
 }
