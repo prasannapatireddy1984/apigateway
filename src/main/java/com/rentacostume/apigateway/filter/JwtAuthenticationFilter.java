@@ -58,6 +58,18 @@ public class JwtAuthenticationFilter implements GlobalFilter, Ordered {
                     .parseClaimsJws(token)
                     .getBody();
 
+            String roles = String.valueOf(claims.get("roles"));
+
+            if (isVendorPath(path) && !roles.contains("VENDOR")) {
+                exchange.getResponse().setStatusCode(HttpStatus.FORBIDDEN);
+                return exchange.getResponse().setComplete();
+            }
+
+            if (isUserPath(path) && !roles.contains("USER")) {
+                exchange.getResponse().setStatusCode(HttpStatus.FORBIDDEN);
+                return exchange.getResponse().setComplete();
+            }
+
             ServerWebExchange mutatedExchange = exchange.mutate()
                     .request(builder -> builder
                             .header("X-User-Id", claims.getSubject())
@@ -86,5 +98,15 @@ public class JwtAuthenticationFilter implements GlobalFilter, Ordered {
     @Override
     public int getOrder() {
         return -1;
+    }
+
+    private boolean isVendorPath(String path) {
+        return path.startsWith("/api/vendor")
+                || path.startsWith("/api/vendors");
+    }
+
+    private boolean isUserPath(String path) {
+        return path.startsWith("/api/cart")
+                || path.startsWith("/api/orders");
     }
 }
