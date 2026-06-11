@@ -60,6 +60,11 @@ public class JwtAuthenticationFilter implements GlobalFilter, Ordered {
 
             String roles = String.valueOf(claims.get("roles"));
 
+            if (isAdminPath(path) && !roles.contains("ADMIN")) {
+                exchange.getResponse().setStatusCode(HttpStatus.FORBIDDEN);
+                return exchange.getResponse().setComplete();
+            }
+
             if (isVendorPath(path) && !roles.contains("VENDOR")) {
                 exchange.getResponse().setStatusCode(HttpStatus.FORBIDDEN);
                 return exchange.getResponse().setComplete();
@@ -101,9 +106,11 @@ public class JwtAuthenticationFilter implements GlobalFilter, Ordered {
     }
 
     private boolean isVendorPath(String path) {
-        return path.startsWith("/api/vendor")
-                || path.startsWith("/api/vendors")
-                || path.startsWith("/api/orders/vendor");
+        return !isAdminPath(path) && (
+                path.startsWith("/api/vendor")
+                        || path.startsWith("/api/vendors")
+                        || path.startsWith("/api/orders/vendor")
+        );
     }
 
     private boolean isUserPath(String path) {
@@ -112,5 +119,10 @@ public class JwtAuthenticationFilter implements GlobalFilter, Ordered {
                 path.startsWith("/api/orders")
                         && !path.startsWith("/api/orders/vendor")
         );
+    }
+
+    private boolean isAdminPath(String path) {
+        return path.startsWith("/api/vendors/admin")
+                || path.startsWith("/api/admin");
     }
 }
