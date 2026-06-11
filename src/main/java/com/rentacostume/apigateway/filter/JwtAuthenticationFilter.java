@@ -118,11 +118,15 @@ public class JwtAuthenticationFilter implements GlobalFilter, Ordered {
                 || (
                 path.startsWith("/api/orders")
                         && !path.startsWith("/api/orders/vendor")
+                        && !path.startsWith("/api/orders/admin")
         );
     }
 
     private boolean isAdminPath(String path) {
         return path.startsWith("/api/vendors/admin")
+                || path.startsWith("/api/users/admin")
+                || path.startsWith("/api/orders/admin")
+                || path.startsWith("/api/catalog/admin")
                 || path.startsWith("/api/admin");
     }
 }
